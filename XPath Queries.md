@@ -1,5 +1,5 @@
 # Objetivo
-Compreender seu uso.
+Compreender o seu uso.
 
 ---
 
