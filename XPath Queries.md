@@ -31,6 +31,6 @@ Get-WinEvent -LogName Application -FilterXPath '*/System/Provider[@Name="WLMS"]
 # Desafios do lab
 1. *Com base no conhecimento adquirido sobre Get-WinEvent e XPath, qual é a consulta para encontrar eventos do WLMS com um horário de sistema de 2020-12-15T01:09:08.940277500Z?*
 > Get-WinEvent -LogName Application -FilterXPath '*/System/Provider[@Name="WLMS"] and */System/TimeCreated[@SystemTime="2020-12-15T01:09:08.940277500Z"]' | Tive que pesquisar em qual log ficava armazenado o WLMS.
-![z](imagens/z)
+![z](imagens/z.png)
 
 2. 
