@@ -20,3 +20,13 @@ Get-WinEvent -LogName Application -FilterXPath '*/System/Provider[@Name="WLMS"]
 - Também é possível filtrar usando os dois parâmetros adicionando **and** após terminar a 1ª filtragem:
 
 ...'*/System/EventID=101 **and** */System/Provider[@Name="WLMS"]'
+
+- Elementos dentro de EventData possuem uma sintaxe própria:
+
+...'*/EventData/Data[@Name="TargetUserName"]="System"'
+
+**No contexto de SOC e investigação de incidentes, XPath permite criar consultas mais precisas sobre os eventos, filtrando por Event ID, Provider, atributos e dados específicos do evento, reduzindo significativamente o volume de informações analisadas.**
+
+---
+# Desafios do lab
+1. 
