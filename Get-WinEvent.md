@@ -1,5 +1,5 @@
 # Objetivo
-Compreender seu uso.
+Compreender o seu uso.
 
 ---
 O **Get-WinEvent** é um cmdlet do PowerShell utilizado para consultar Windows Event Logs e arquivos de Event Tracing, tanto localmente quanto em computadores remotos. Ele permite combinar eventos de diferentes fontes e realizar filtros usando XPath, XML estruturado e FilterHashtable.
