@@ -15,11 +15,11 @@ O Get-WinEvent é especialmente útil em SOC e investigação de incidentes, poi
 
 2. *Execute o comando do Exemplo 8. Em vez da string *Policy*, procure por *PowerShell*. Qual é o nome do terceiro provedor de logs?*
 > Get-WinEvent -ListProvider * PowerShell * | levei um tempo pra perceber que era o exemplo 8 do "sheetcode" provido na questão.
-![p](imagens/p)
+![p](imagens/p.png)
 
 3. *Execute o comando do Exemplo 9. Use o Microsoft-Windows-PowerShell como provedor de logs. Quantos IDs de evento são exibidos para esse provedor de eventos?*
 > 192 | Só adicionei Measure-Object no final do commando.
-![192](imagens/192)
+![192](imagens/192.png)
 
 4. *Como especificar o número de eventos a serem exibidos?*
 > -MaxEvents
