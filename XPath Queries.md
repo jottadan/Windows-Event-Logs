@@ -38,7 +38,7 @@ Get-WinEvent -LogName Application -FilterXPath '*/System/Provider[@Name="WLMS"]
 
 2. *Using Get-WinEvent and XPath, what is the query to find a user named Sam with an Logon Event ID of 4720?*
 > Get-WinEvent -LogName Security -FilterXPath '*/EventData/Data[@Name="TargetUserName"]="Sam" and */System/EventID=4720' | Não sei porque dá erro no powershell mas contou como correto a resposta.
-![s](imagens/s)
+![s](imagens/s.png)
 
 3. *Com base na consulta anterior, quantos resultados são retornados?*
 > 2 | Tive que pesquisar já que só retornava erro. Após checar a resposta vi que o comando está correto e que com a outra pessoa apareceu normal, então não sei o porquê disso ter ocorrido.
