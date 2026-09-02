@@ -51,3 +51,9 @@ Get-WinEvent -LogName Application -FilterXPath '*/System/Provider[@Name="WLMS"]
 
 6. *Qual é o nome do provedor?*
 > Microsoft-Windows-Security-Auditing | Chequei pelo Event Viewer na aba System.
+
+---
+
+# Coclusão
+
+Pude aperfeiçoar meu raciocínio investigativo, aprender a como usar os comandos corretos e correlacionar diferentes ferramentas para alcançar o objetivo de forma prática e rápida.
