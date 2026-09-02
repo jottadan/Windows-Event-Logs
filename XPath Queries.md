@@ -56,4 +56,4 @@ Get-WinEvent -LogName Application -FilterXPath '*/System/Provider[@Name="WLMS"]
 
 # Coclusão
 
-Pude aperfeiçoar meu raciocínio investigativo, aprender a como usar os comandos corretos e correlacionar diferentes ferramentas para alcançar o objetivo de forma prática e rápida.
+Sinceramente me diverti enquanto respondia, pude aperfeiçoar meu raciocínio investigativo, aprender a como usar os comandos corretos e correlacionar diferentes ferramentas para alcançar o objetivo da forma mais prática e rápida.
