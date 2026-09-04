@@ -1,5 +1,6 @@
 # Enquanto fazia outra room montei queries que achei interessantes. Vou deixar guardado aqui.
 ---
+## A pergunta: What was the Logon ID of the malicious RDP login? | Note: The login you are looking for has a Logon Type 10.
 
 Minha 1ª montagem dessa query foi | **_Get-WinEvent -Path "C:\Users\Administrator\Desktop\Practice-Security.evtx" -FilterXPath "*/System/EventID='4624' and */EventData/Data[@Name='IpAddress']='10.10.53.248' and */EventData/Data[@Name='LogonType']=10"_**
 
