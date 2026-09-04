@@ -11,9 +11,8 @@ Também descobri em qual tipo de info dentro da query precisava usar ""/'', send
 
 Ficando assim | **_Get-WinEvent -Path "C:\Users\Administrator\Desktop\Practice-Security.evtx" -FilterXPath "*[System[EventID=4624] and EventData[Data[@Name='IpAddress']='10.10.53.248'] and EventData[Data[@Name='LogonType']=10]]" | Format-List *_**
 
-Os outros jeitos de puxar o campo específico, eram em parte mais complexos e demorados de se escrever. Considerei que para usar como um "copia e cola" eles seriam bem úteis, como para servir de template para puxar a mesma info de um campo específico mas de diversos logs diferentes.
+> Os outros jeitos de puxar o campo específico, eram em parte mais complexos e demorados de se escrever. Considerei que para usar como um "copia e cola" eles seriam bem úteis, como para servir de template para puxar a mesma info de um campo específico mas de diversos logs diferentes.
 
-Para essa info de somente um log, considerei desnecessário e mais prático simplesmente puxar o "detail" todo do evento e procurar manualmente o campo *Logon ID*.
+> Para essa info de somente um log, considerei desnecessário e mais prático simplesmente puxar o "detail" todo do evento e procurar manualmente o campo *Logon ID*.
 
----
 ## Neste outro formato, enquanto escrevia pude sentir que em algum momento ficaria perdido com a quantidade de [] abertos/fechados, mas uma simples contagem de colchetes no final faz valer a pena o tempo reduzido de pressionar */.
