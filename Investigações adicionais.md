@@ -16,3 +16,29 @@ Ficando assim | **_Get-WinEvent -Path "C:\Users\Administrator\Desktop\Practice-S
 > Para essa info de somente um log, considerei desnecessário e mais prático simplesmente puxar o "detail" todo do evento e procurar manualmente o campo *Logon ID*.
 
 ## Neste outro formato, enquanto escrevia pude sentir que em algum momento ficaria perdido com a quantidade de [] abertos/fechados, mas uma simples contagem de colchetes no final faz valer a pena o tempo reduzido de pressionar */.
+
+---
+
+## A pergunta: Which URL was the file downloaded from? | Contexto: um usuário fez download de um arquivo suspeito.
+
+Passei um tempo tentando entender como montar a query de uma forma prática pro uso real, no final cheguei em 2 queries com a ajuda do ChatGPT.
+
+- **Get-WinEvent -Path "... -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {
+([xml]$_.ToXml()).Event.EventEata.Data |
+Where-Object Name -eq 'Contents' |
+Select-Object -ExpandProperty '#text'
+}**
+
+> Por eu não conhecer essas sintaxes e me parecer muita coisa pra escrever, não optei muito por ela. Porém ela não requer investigação adicional além do EventID e o campo específico sendo procurado (diferente da outra query).
+
+> A longo prazo é uma query muito útil de se decorar pra utilizar em um ambiente profissional, não tendo que fazer investigações adicionais pra analisar um event só.
+
+- **Get-WinEvent -Path "..." -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {$_.Properties}** & **Get-WinEvent -Path "..." -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {$_.Properties[*].Value}**
+
+> Uso muito mais simples e rápido comparado a 1ª query, porém ela requer dois comandos.
+
+> 1º **Get-WinEvent -Path "..." -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {$_.Properties}** para conseguir fazer a contagem de _linhas_ para achar o valor do "Contents".
+
+> 2º Substituir o {$_.Properties} por {$_.Properties[...].Value} ("..." sendo o valor em nº da linha do "Contents", Ex.: [8]).
+
+> **Eu considero perfeito para uso único, dois comandos rápidos para pegar uma variável que pode acabar mudando seu valor, mas para uso contínuo haveria maior tempo sendo gasto procurando pelo valor da variável**
