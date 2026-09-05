@@ -41,6 +41,6 @@ Select-Object -ExpandProperty '#text'
 
 > 2º Substituir o **`{$_.Properties}`** por **`{$_.Properties[...].Value}`** ("..." sendo o valor em nº da linha do "Contents", Ex.: [8]).
 
-> **Eu considero perfeito para uso único, dois comandos rápidos para pegar uma variável que pode acabar mudando seu valor, mas para uso contínuo haveria maior tempo sendo gasto procurando pelo valor da variável**
+> **Eu considero perfeito para uso único, dois comandos rápidos para pegar uma variável que pode acabar mudando seu valor, mas para uso contínuo haveria maior tempo sendo gasto procurando pelo valor da variável.**
 
 Durante a investigação utilizei o simples e o complexo. Acredito que a melhor opção é aprender a usar um comando mais complexo para situações onde há pouca informação a ser utilizada ou bastante tempo/esforço bruto a ser economizado, mas sempre optar pela opção mais prática para não ficar exausto de tanto escrever ou memorizar comandos difíceis e complexos. 
