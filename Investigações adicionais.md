@@ -2,14 +2,14 @@
 ---
 ## A pergunta: What was the Logon ID of the malicious RDP login? | Note: The login you are looking for has a Logon Type 10.
 
-Minha 1ª montagem dessa query foi | **_Get-WinEvent -Path "C:\Users\Administrator\Desktop\Practice-Security.evtx" -FilterXPath "*/System/EventID='4624' and */EventData/Data[@Name='IpAddress']='10.10.53.248' and */EventData/Data[@Name='LogonType']=10"_**
+Minha 1ª montagem dessa query foi | **`Get-WinEvent -Path "C:\Users\Administrator\Desktop\Practice-Security.evtx" -FilterXPath "*/System/EventID='4624' and */EventData/Data[@Name='IpAddress']='10.10.53.248' and */EventData/Data[@Name='LogonType']=10"`**
 
 > O meu objetivo era encontrar qual o Logon ID da conexão RDP feita pelo atacante. A query retornava só um resultado, sem mostrar justamente o campo do Logon ID.
 
 Após um tempo estudando em como puxar esse campo, dentre diversos meios diferentes e mais complexos que pude ver, escolhi o Format-List *.
 Também descobri em qual tipo de info dentro da query precisava usar ""/'', sendo só em números não inteiros ou nomes específicos que queria puxar, e que o jeito que escrevia as queries era em um formato _flat_, então na próxima query montei em outro formato, já utilizando o format-list.
 
-Ficando assim | **_Get-WinEvent -Path "C:\Users\Administrator\Desktop\Practice-Security.evtx" -FilterXPath "*[System[EventID=4624] and EventData[Data[@Name='IpAddress']='10.10.53.248'] and EventData[Data[@Name='LogonType']=10]]" | Format-List *_**
+Ficando assim | **`Get-WinEvent -Path "C:\Users\Administrator\Desktop\Practice-Security.evtx" -FilterXPath "*[System[EventID=4624] and EventData[Data[@Name='IpAddress']='10.10.53.248'] and EventData[Data[@Name='LogonType']=10]]" | Format-List *`**
 
 > Os outros jeitos de puxar o campo específico, eram em parte mais complexos e demorados de se escrever. Considerei que para usar como um "copia e cola" eles seriam bem úteis, como para servir de template para puxar a mesma info de um campo específico mas de diversos logs diferentes.
 
@@ -23,22 +23,24 @@ Ficando assim | **_Get-WinEvent -Path "C:\Users\Administrator\Desktop\Practice-S
 
 Passei um tempo tentando entender como montar a query de uma forma prática pro uso real, no final cheguei em 2 queries com a ajuda do ChatGPT.
 
-- **Get-WinEvent -Path "... -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {
+- **`Get-WinEvent -Path "..." -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {
 ([xml]$_.ToXml()).Event.EventEata.Data |
 Where-Object Name -eq 'Contents' |
 Select-Object -ExpandProperty '#text'
-}**
+}`**
 
 > Por eu não conhecer essas sintaxes e me parecer muita coisa pra escrever, não optei muito por ela. Porém ela não requer investigação adicional além do EventID e o campo específico sendo procurado (diferente da outra query).
 
-> A longo prazo é uma query muito útil de se decorar pra utilizar em um ambiente profissional, não tendo que fazer investigações adicionais pra analisar um event só.
+> A longo prazo é uma query muito útil de se decorar pra utilizar em um ambiente profissional, não tendo que fazer investigações adicionais pra analisar um evento só.
 
-- **Get-WinEvent -Path "..." -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {$_.Properties}** & **Get-WinEvent -Path "..." -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {$_.Properties[*].Value}**
+- **`Get-WinEvent -Path "..." -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {$_.Properties}` & `{$_.Properties[...].Value}`**
 
 > Uso muito mais simples e rápido comparado a 1ª query, porém ela requer dois comandos.
 
-> 1º **Get-WinEvent -Path "..." -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {$_.Properties}** para conseguir fazer a contagem de _linhas_ para achar o valor do "Contents".
+> 1º **`Get-WinEvent -Path "..." -FilterXPath "*[System[EventID=15] and EventData[Data[@Name='Contents']]]" | ForEach-Object {$_.Properties}`** para conseguir fazer a contagem de _linhas_ para achar o valor do "Contents".
 
-> 2º Substituir o {$_.Properties} por {$_.Properties[...].Value} ("..." sendo o valor em nº da linha do "Contents", Ex.: [8]).
+> 2º Substituir o **`{$_.Properties}`** por **`{$_.Properties[...].Value}`** ("..." sendo o valor em nº da linha do "Contents", Ex.: [8]).
 
 > **Eu considero perfeito para uso único, dois comandos rápidos para pegar uma variável que pode acabar mudando seu valor, mas para uso contínuo haveria maior tempo sendo gasto procurando pelo valor da variável**
+
+Durante a investigação utilizei o simples e o complexo. Acredito que a melhor opção é aprender a usar um comando mais complexo para situações onde há pouca informação a ser utilizada ou bastante tempo/esforço bruto a ser economizado, mas sempre optar pela opção mais prática para não ficar exausto de tanto escrever ou memorizar comandos difíceis e complexos. 
